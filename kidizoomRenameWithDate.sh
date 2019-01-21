@@ -8,9 +8,10 @@ SOURCE_DIR="/Users/thom/Desktop/input movies"
 # renamed movies to be copied to
 OUTPUT_DIR="/Users/thom/Desktop/output movies"
 
+IFS=$'\n'
 for FILE in `ls "${SOURCE_DIR}"`; do
 
-  FILEPATH="${SOURCE_DIR}"/$FILE
+  FILEPATH="${SOURCE_DIR}/$FILE"
   #FILEEXT=`echo $FILEPATH | awk -F . '{print $NF}'`
 
   # for this camera the output looks like
@@ -21,7 +22,7 @@ for FILE in `ls "${SOURCE_DIR}"`; do
   MONTH=`echo $DATECREATED | awk -F ':' '{print $2}'`
   DAY=`echo $DATECREATED | awk -F ':' '{print $3}' | cut -c1-2`
 
-  NEWFILENAME=`echo "${YEAR}-${MONTH}-${DAY}_${FILE}"`
+  NEWFILENAME=`echo "${YEAR}-${MONTH}-${DAY} ${FILE}"`
 
   cp "$FILEPATH" "${OUTPUT_DIR}/${NEWFILENAME}"
   touch -c -t ${YEAR}${MONTH}${DAY}0000 "${OUTPUT_DIR}/${NEWFILENAME}"
